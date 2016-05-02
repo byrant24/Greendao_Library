@@ -19,17 +19,17 @@ import android.util.Log;
  * Created by Anmol on 30-04-2016.
  */
 public class AlarmReceiver extends BroadcastReceiver {
+    DbHelper db;
+
     private NotificationManager notificationManager;
     @Override
     public void onReceive(final Context context, Intent intent) {
 
         Log.d("hh","enter");
+        db=new DbHelper(context);
 
         String msg = intent.getStringExtra("message");
-//        this will update the UI with message
-        //this will sound the alarm tone
-        //this will sound the alarm once, if you wish to
-        //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
+
 //        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 //        if (alarmUri == null) {
 //            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -42,15 +42,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, MainActivity.class), 0);
         Notification alarmNotification = new Notification.Builder(
-                context).setContentTitle("Alarm")
+                context).setContentTitle("Todo Task")
                 .setContentText(msg)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(contentIntent)
                 .build();
         notificationManager.notify(1, alarmNotification);
         Log.d("AlarmReceiver", "Notification sent.");
-
-
+        db.update(msg);
     }
 
 }
