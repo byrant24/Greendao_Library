@@ -2,6 +2,7 @@ package com.example.anmol.myapplication;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // Used to cache the views within the item layout for fast access
     public static class TaskHolder extends RecyclerView.ViewHolder {
 
+        CardView cv;
         // holder should contain a member variable
         // for any view that will be set as you render a row
         public CheckBox isTaskDone;
@@ -37,6 +39,7 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
+            cv = (CardView)itemView.findViewById(R.id.card_view);
             isTaskDone = (CheckBox) itemView.findViewById(R.id.checkBox1);
             taskName = (TextView) itemView.findViewById(R.id.todotext);
             tasktime = (TextView) itemView.findViewById(R.id.tasktime);
