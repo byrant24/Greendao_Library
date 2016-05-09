@@ -11,15 +11,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anmol on 01-05-2016.
  */
 public class RecycleAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<Task> todoList;
+    List<Task> todoList;
 
-    RecycleAdaptor(ArrayList<Task> todoList) {
+    RecycleAdaptor(List<Task> todoList) {
         this.todoList = todoList;
     }
 
