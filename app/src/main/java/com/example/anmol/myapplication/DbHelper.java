@@ -23,6 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String TASKNAME = "taskName";
     private static final String TIME = "time";
+    private static final String EMAIL = "email_id";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,27 +41,28 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ( " +
-                ID + " INTEGER PRIMARY KEY AUTOINCREMENT,  " + TASKNAME + " TEXT, " + TIME + " DEFAULT CURRENT_TIMESTAMP )";
+                ID + " INTEGER PRIMARY KEY AUTOINCREMENT,  " + TASKNAME + " TEXT, " +  EMAIL + " TEXT, "+ TIME + " DEFAULT CURRENT_TIMESTAMP )";
         db.execSQL(sql);
 
 //        db.close();
     }
 
-    public void addTask(String note) {
+    public void addTask(String note,String email) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(TASKNAME, note); // task name
+        values.put(EMAIL, email); // task email
         db.insert(TABLE_TASKS, null, values);
     }
 
-    public ArrayList<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks(String emailId) {
         ArrayList<Task> taskList = new ArrayList<Task>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
+        String selectQuery = "SELECT  * FROM " + TABLE_TASKS + " where " + EMAIL + " = ?";
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{emailId});
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -69,6 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 task.setId(cursor.getInt(cursor.getColumnIndex(ID)));
                 task.setTaskName(cursor.getString(cursor.getColumnIndex(TASKNAME)));
                 task.setTime(cursor.getString(cursor.getColumnIndex(TIME)));
+                task.setEmail(cursor.getString(cursor.getColumnIndex(EMAIL)));
                 taskList.add(task);
             } while (cursor.moveToNext());
         }

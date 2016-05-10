@@ -27,7 +27,7 @@ public class EditNoteFragment extends Fragment {
 
     DbHelper db;
     int id;
-
+    String note;
 
 
     @Override
@@ -36,11 +36,11 @@ public class EditNoteFragment extends Fragment {
     }
 
 
-    public static EditNoteFragment newInstance(int id)
-    {
+    public static EditNoteFragment newInstance(int id, String note) {
         EditNoteFragment fragment = new EditNoteFragment();
         Bundle args = new Bundle();
-        args.putInt("id",id);
+
+        args.putString("note", note);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,7 +49,9 @@ public class EditNoteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-       id=bundle.getInt("id");
+        id = bundle.getInt("id");
+        note = bundle.getString("note");
+
 
     }
 
@@ -57,18 +59,17 @@ public class EditNoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View convertView = inflater.inflate(R.layout.edit_note, container, false);
-        final EditText editNoteView=(EditText)convertView.findViewById(R.id.edit_note_view);
-        final Button editNoteButton=(Button) convertView.findViewById(R.id.edit_note_button);
-        db=new DbHelper(getContext());
+        final EditText editNoteView = (EditText) convertView.findViewById(R.id.edit_note_view);
+        final Button editNoteButton = (Button) convertView.findViewById(R.id.edit_note_button);
+        db = new DbHelper(getContext());
 
-
+        editNoteView.setText(note);
         editNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String noteText=editNoteView.getText().toString();
-                db.update(id,noteText);
+                String noteText = editNoteView.getText().toString();
+                db.update(id, noteText);
                 getActivity().getSupportFragmentManager().popBackStack();
-
 
 
             }

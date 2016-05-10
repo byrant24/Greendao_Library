@@ -19,6 +19,12 @@ card_view:cardUseCompatPadding="true">
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
         <TextView
             android:id="@+id/serial"
             android:layout_width="wrap_content"
@@ -30,6 +36,17 @@ card_view:cardUseCompatPadding="true">
             android:text="S.No. - "
             android:textColor="#000"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/note_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/serial"
+            android:text="New Text"
+            android:textColor="#8d7b63"
+            android:textSize="14sp" />
+
+        </LinearLayout>
 
         <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar_card"
@@ -52,19 +69,13 @@ card_view:cardUseCompatPadding="true">
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/note_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textColor="#8d7b63"
-                android:textSize="14sp" />
+
 
             <TextView
                 android:id="@+id/note_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="10dp"
                 android:text="New Text"
                 android:textColor="#b3b3b3"
                 android:textSize="12sp" />

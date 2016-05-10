@@ -3,16 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+   >
 
     <item
-        android:id="@+id/menu_edit"
+        android:id="@+id/sign_out"
         android:background="@android:color/white"
-        android:title="Edit"
+        android:title="Sign out"
         app:showAsAction="collapseActionView" />
-    <item
-        android:id="@+id/menu_delete"
-        android:background="@android:color/white"
-        android:title="Delete"
-        app:showAsAction="collapseActionView" />
+
 </menu>

@@ -1,7 +1,9 @@
 package com.example.anmol.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +31,7 @@ public class NoteFragment extends Fragment {
     Intent editIntent;
     RecyclerView recyclerView;
     public AddNoteInterface myOnAddNoteInterface;
+    String emailId;
 
 
 
@@ -48,6 +51,11 @@ public class NoteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
+        SharedPreferences m_sharedPref;
+        m_sharedPref = getActivity().getSharedPreferences(
+                "com.example.anmol.myapplication", Context.MODE_PRIVATE);
+
+        emailId = m_sharedPref.getString("email_id", "");
 
     }
 
@@ -55,9 +63,12 @@ public class NoteFragment extends Fragment {
     public void onResume() {
         super.onResume();
         RecycleAdaptor radap;
+
+
+
         db=new DbHelper(getContext());
         todoList = new ArrayList<Task>();
-        todoList = db.getAllTasks();
+        todoList = db.getAllTasks(emailId);
         radap=new RecycleAdaptor(todoList,getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(radap);
@@ -77,7 +88,7 @@ public class NoteFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                addNewNote();
+                addNewNote(emailId);
             }
         });
 
@@ -86,15 +97,15 @@ public class NoteFragment extends Fragment {
     }
 
 
-    private void addNewNote()
+    private void addNewNote(String email)
     {
         myOnAddNoteInterface = ((MainActivity) getActivity());
-        myOnAddNoteInterface.addNote();
+        myOnAddNoteInterface.addNote(email);
     }
 
     public interface AddNoteInterface
     {
-        public void addNote();
+        public void addNote(String email);
     }
 }
 

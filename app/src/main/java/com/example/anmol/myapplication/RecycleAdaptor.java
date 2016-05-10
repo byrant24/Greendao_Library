@@ -75,7 +75,7 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
 
 
         holder.noteText.setText(todoList.get(position).getTaskName());
-        holder.noteId.setText(String.valueOf(position));
+        holder.noteId.setText(String.valueOf(position+1));
 
         holder.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             int index;
@@ -87,7 +87,7 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
                     case R.id.menu_edit:
                         index = holder.getAdapterPosition();
                         note_id = todoList.get(index).getId();
-                        editNote(note_id);
+                        editNote(note_id,todoList.get(index).getTaskName());
                         return true;
                     case R.id.menu_delete:
                         index = holder.getAdapterPosition();
@@ -103,10 +103,10 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
     }
 
 
-    public void editNote(int note_id)
+    public void editNote(int note_id,String note)
     {
         myOnEditListener = ((MainActivity) context);
-        myOnEditListener.editNote(note_id);
+        myOnEditListener.editNote(note_id,note);
     }
 
     public void  deleteNote(int position,int note_id)
@@ -117,7 +117,7 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
     }
     public interface EditNoteInterface
     {
-        public void editNote(int id);
+        public void editNote(int id,String note);
     }
 
 }
