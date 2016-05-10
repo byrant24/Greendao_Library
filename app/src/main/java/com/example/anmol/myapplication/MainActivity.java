@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Movie;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -26,7 +28,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener{
+public class MainActivity extends AppCompatActivity  implements RecycleAdaptor.EditNoteInterface, NoteFragment.AddNoteInterface{
     ArrayList<Task> todoList;
     FloatingActionButton btnaddTask;
     DbHelper db;
@@ -37,100 +39,32 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnaddTask=(FloatingActionButton)findViewById(R.id.addTask);
-        recyclerView=(RecyclerView)findViewById(R.id.recylerid);
 
-        btnaddTask.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity();
-            }
-        });
-        RecycleAdaptor radap;
-        db=new DbHelper(this);
-        todoList = new ArrayList<Task>();
-        todoList = db.getAllTasks();
-        radap=new RecycleAdaptor(todoList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(radap);
-
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Task task = todoList.get(position);
-                //Toast.makeText(getApplicationContext(), task.getTaskName(), Toast.LENGTH_SHORT).show();
-//                editIntent=new Intent(this,EditTask.class);
-//                editIntent.putExtra("message", task.getTaskName());
-//                startActivity(editIntent);
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
-    }
-
-    void startActivity() {
-        Intent mintent=new Intent(this,AddTaskActivity.class);
-        startActivity(mintent);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        NoteFragment noteFragment = NoteFragment.newInstance();
+        fragmentTransaction.replace(R.id.main_frag, noteFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
-    public void onClick(View v) {
+    public void editNote(int id) {
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        EditNoteFragment editNoteFragment = EditNoteFragment.newInstance(id);
+        fragmentTransaction.replace(R.id.main_frag, editNoteFragment).addToBackStack(getClass().getName());
+        fragmentTransaction.commit();
     }
 
-    //Adding RecyclerView Item Click Listener
-    public interface ClickListener {
-        void onClick(View view, int position);
+    @Override
+    public void addNote() {
 
-        void onLongClick(View view, int position);
-    }
-    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
-        private GestureDetector gestureDetector;
-        private MainActivity.ClickListener clickListener;
-
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final MainActivity.ClickListener clickListener) {
-            this.clickListener = clickListener;
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
-                    }
-                }
-            });
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-                clickListener.onClick(child, rv.getChildPosition(child));
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AddNoteFragment addNoteFragment = AddNoteFragment.newInstance();
+        fragmentTransaction.replace(R.id.main_frag, addNoteFragment).addToBackStack(getClass().getName());
+        fragmentTransaction.commit();
     }
 
 }

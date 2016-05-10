@@ -4,6 +4,7 @@ package com.example.anmol.myapplication;
  * Created by Anmol on 01-05-2016.
  */
 public class Task {
+    private int id;
     private String taskName;
     private int status;
     private String time;
@@ -12,8 +13,9 @@ public class Task {
 
     }
 
-    Task(String taskName,String time,int status)
+    Task(int id,String taskName,String time,int status)
     {
+        this.id=id;
         this.taskName=taskName;
         this.time=time;
         this.status=status;
@@ -29,6 +31,15 @@ public class Task {
 
     public int getStatus() {
         return status;
+    }
+
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+    public int getId()
+    {
+        return id;
     }
 
     public void setStatus(int status) {

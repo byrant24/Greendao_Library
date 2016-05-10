@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "923662124526",
+    "project_id": "my-application-a16cf"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923662124526:android:77e1b610f890be14",
+        "android_client_info": {
+          "package_name": "com.example.anmol.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChYLBmBGsD-zCNgrjjqlt44KeeCaYX4fQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-77551208-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

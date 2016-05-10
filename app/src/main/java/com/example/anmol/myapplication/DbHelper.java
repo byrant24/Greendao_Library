@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Anmol on 01-05-2016.
  */
-public class DbHelper extends SQLiteOpenHelper{
+public class DbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     // Database Name
@@ -22,8 +22,7 @@ public class DbHelper extends SQLiteOpenHelper{
     // tasks Table Columns names
     private static final String ID = "id";
     private static final String TASKNAME = "taskName";
-    private static final String TIME="time";
-    private static final String STATUS = "status";
+    private static final String TIME = "time";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,23 +40,18 @@ public class DbHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ( " +
-            TASKNAME + " TEXT, " + TIME + " TEXT," + STATUS + " INTEGER)";
+                ID + " INTEGER PRIMARY KEY AUTOINCREMENT,  " + TASKNAME + " TEXT, " + TIME + " DEFAULT CURRENT_TIMESTAMP )";
         db.execSQL(sql);
 
 //        db.close();
     }
 
-    public void addTask(Task task) {
+    public void addTask(String note) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TASKNAME, task.getTaskName()); // task name
-        values.put(TIME,task.getTime());
-        // status of task- can be 0 for not done and 1 for done
-        values.put(STATUS, task.getStatus());
-        // Inserting Row
+        values.put(TASKNAME, note); // task name
         db.insert(TABLE_TASKS, null, values);
-//        db.close(); // Closing database connection
     }
 
     public ArrayList<Task> getAllTasks() {
@@ -72,10 +66,9 @@ public class DbHelper extends SQLiteOpenHelper{
         if (cursor.moveToFirst()) {
             do {
                 Task task = new Task();
-                task.setTaskName(cursor.getString(0));
-                task.setTime(cursor.getString(1));
-                task.setStatus(cursor.getInt(2));
-                // Adding contact to list
+                task.setId(cursor.getInt(cursor.getColumnIndex(ID)));
+                task.setTaskName(cursor.getString(cursor.getColumnIndex(TASKNAME)));
+                task.setTime(cursor.getString(cursor.getColumnIndex(TIME)));
                 taskList.add(task);
             } while (cursor.moveToNext());
         }
@@ -83,13 +76,21 @@ public class DbHelper extends SQLiteOpenHelper{
         return taskList;
     }
 
-    public void update(String msg){
+    public void update(int id, String msg) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(STATUS, 1);
-        db.update(TABLE_TASKS, values, TASKNAME + " = ?",
-                new String[] { msg });
+        values.put(TASKNAME, msg);
+        db.update(TABLE_TASKS, values, ID + " = ?",
+                new String[]{String.valueOf(id)});
+
+    }
+
+    public void delete(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_TASKS, ID + " = ?",
+                new String[]{String.valueOf(id)});
 
     }
 
