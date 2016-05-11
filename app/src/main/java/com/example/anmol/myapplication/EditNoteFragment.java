@@ -39,7 +39,7 @@ public class EditNoteFragment extends Fragment {
     public static EditNoteFragment newInstance(int id, String note) {
         EditNoteFragment fragment = new EditNoteFragment();
         Bundle args = new Bundle();
-
+        args.putInt("id",id);
         args.putString("note", note);
         fragment.setArguments(args);
         return fragment;
