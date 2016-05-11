@@ -112,20 +112,6 @@ public class GooglePlusLoginActivity extends AppCompatActivity implements View.O
             startActivity(intent);
             finish();
 
-            //Displaying name and email
-
-            //Initializing image loader
-//            imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
-//                    .getImageLoader();
-//
-//            imageLoader.get(acct.getPhotoUrl().toString(),
-//                    ImageLoader.getImageListener(profilePhoto,
-//                            R.mipmap.ic_launcher,
-//                            R.mipmap.ic_launcher));
-//
-//            //Loading image
-//            profilePhoto.setImageUrl(acct.getPhotoUrl().toString(), imageLoader);
-
         } else {
             //If login fails
             Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
