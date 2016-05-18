@@ -1,42 +1,20 @@
 package com.example.anmol.myapplication;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Movie;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
+;
 
 public class MainActivity extends AppCompatActivity implements RecycleAdaptor.EditNoteInterface, NoteFragment.AddNoteInterface {
-    ArrayList<Task> todoList;
-    FloatingActionButton btnaddTask;
-    DbHelper db;
-    RecyclerView recyclerView;
-    Intent editIntent;
+
     Toolbar toolbar;
     TextView nameTV;
     SharedPreferences m_sharedPref;
@@ -48,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements RecycleAdaptor.Ed
 
         setContentView(R.layout.activity_main);
         nameTV=(TextView)findViewById(R.id.name);
+
 
         m_sharedPref = getSharedPreferences(
                 "com.example.anmol.myapplication", Context.MODE_PRIVATE);

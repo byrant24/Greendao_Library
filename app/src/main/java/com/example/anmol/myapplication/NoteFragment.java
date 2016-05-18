@@ -19,7 +19,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 /**
- * Created by Amud on 10/05/16.
+ * Created by Anmol on 10/05/16.
  */
 
 public class NoteFragment extends Fragment {
@@ -28,7 +28,6 @@ public class NoteFragment extends Fragment {
 
     DbHelper db;
 
-    Intent editIntent;
     RecyclerView recyclerView;
     public AddNoteInterface myOnAddNoteInterface;
     String emailId;

@@ -39,7 +39,6 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        CardView cv;
         public TextView noteText;
         public TextView noteId;
         Toolbar toolbar;
@@ -55,9 +54,8 @@ public class RecycleAdaptor extends RecyclerView.Adapter<RecycleAdaptor.ViewHold
 
         }
     }
+
     // Involves populating data into the item through holder
-
-
     @Override
     public int getItemCount() {
         return todoList.size();

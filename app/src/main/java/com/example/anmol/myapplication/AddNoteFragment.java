@@ -12,13 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * Created by Amud on 10/05/16.
+ * Created by Anmol on 10/05/16.
  */
 
-
-/**
- * Created by Amud on 10/05/16.
- */
 public class AddNoteFragment extends Fragment {
 
     DbHelper db;

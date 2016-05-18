@@ -1,19 +1,14 @@
 package com.example.anmol.myapplication;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.android.volley.toolbox.ImageLoader;
-//import com.android.volley.toolbox.NetworkImageView;
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,7 +22,6 @@ public class GooglePlusLoginActivity extends AppCompatActivity implements View.O
 
     //Signin button
     private SignInButton signInButton;
-    Button nextb;
 
     //Signing Options
     private GoogleSignInOptions gso;
@@ -43,9 +37,6 @@ public class GooglePlusLoginActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.googlelogin);
-
-
-        //profilePhoto = (NetworkImageView) findViewById(R.id.profileImage);
 
         //Initializing google signin option
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 /**
- * Created by Amud on 11/05/16.
+ * Created by Anmol on 11/05/16.
  */
 public class SplashScreen extends Activity {
     protected void onCreate(Bundle bundle) {
